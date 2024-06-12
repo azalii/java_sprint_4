@@ -15,6 +15,7 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.time.Duration;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
 @RunWith(Parameterized.class)
@@ -122,10 +123,14 @@ public class OrderTest {
         ConfirmationStepPage confirmationPage = secondStep.finish();
         SuccessStepPage successPage = confirmationPage.yes();
         assertTrue(successPage.isDisplayed());
+
+        CheckStatusStepPage checkStatusStepPage = successPage.showStatusInfo();
+        assertEquals(name, checkStatusStepPage.getName());
+        assertEquals(lastname, checkStatusStepPage.getLastname());
     }
 
-    @After
-    public void tearDown() {
+   @After
+   public void tearDown() {
         driver.quit();
     }
 }

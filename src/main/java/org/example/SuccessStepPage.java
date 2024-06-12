@@ -15,4 +15,9 @@ public class SuccessStepPage {
     public boolean isDisplayed() {
         return driver.findElement(infoButton).isDisplayed();
     }
+
+    public CheckStatusStepPage showStatusInfo() {
+        driver.findElement(infoButton).click();
+        return new CheckStatusStepPage(driver);
+    }
 }

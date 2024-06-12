@@ -29,7 +29,7 @@ public class MainPage {
     }
 
     public void waitToLoadAccordionItemByIndex(Integer index) {
-        new WebDriverWait(driver, Duration.ofSeconds(3))
+        new WebDriverWait(driver, Duration.ofSeconds(10))
                 .until(ExpectedConditions.visibilityOfElementLocated(By.id("accordion__heading-" + index)));
     }
 
@@ -41,6 +41,10 @@ public class MainPage {
     public String clickToAccordionItemByIndex(Integer index) {
         WebElement element = driver.findElement(By.id("accordion__heading-" + index));
         element.click();
+
+        new WebDriverWait(driver, Duration.ofSeconds(10))
+                .until(ExpectedConditions.visibilityOfElementLocated(By.id("accordion__panel-" + index)));
+
         WebElement panel = driver.findElement(By.id("accordion__panel-" + index));
         return panel.findElement(By.tagName("p")).getText();
     }
