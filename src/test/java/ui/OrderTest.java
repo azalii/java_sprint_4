@@ -7,13 +7,8 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
-
-import java.time.Duration;
+import org.openqa.selenium.firefox.FirefoxDriver;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
@@ -45,8 +40,10 @@ public class OrderTest {
 
     @Before
     public void startUp() {
-        WebDriverManager.chromedriver().setup();
-        driver = new ChromeDriver();
+        WebDriverManager.firefoxdriver().setup();
+        driver = new FirefoxDriver();
+//        WebDriverManager.chromedriver().setup();
+//        driver = new ChromeDriver();
     }
 
     @Parameterized.Parameters
@@ -80,12 +77,12 @@ public class OrderTest {
     @Test
     public void topOrderButton() {
         driver.get("https://qa-scooter.praktikum-services.ru");
-        new WebDriverWait(driver, Duration.ofSeconds(3))
-                .until(ExpectedConditions.visibilityOfElementLocated(By.className("Button_Button__ra12g")));
 
         MainPage mainPage = new MainPage(driver);
         mainPage.cookieConsent();
-        FirstStepPage firstStep = mainPage.topOrderButton();
+        mainPage.waitToLoadTopOrderButton();
+        mainPage.scrollToTopOrderButton();
+        FirstStepPage firstStep = mainPage.clickTopOrderButton();
         firstStep.setName(name);
         firstStep.setLastname(lastname);
         firstStep.setAddress(address);
@@ -104,12 +101,12 @@ public class OrderTest {
     @Test
     public void bottomOrderButton() {
         driver.get("https://qa-scooter.praktikum-services.ru");
-        new WebDriverWait(driver, Duration.ofSeconds(3))
-                .until(ExpectedConditions.visibilityOfElementLocated(By.className("Button_Button__ra12g")));
 
         MainPage mainPage = new MainPage(driver);
         mainPage.cookieConsent();
-        FirstStepPage firstStep = mainPage.bottomOrderButton();
+        mainPage.waitToLoadBottomOrderButton();
+        mainPage.scrollToBottomOrderButton();
+        FirstStepPage firstStep = mainPage.clickBottomOrderButton();
         firstStep.setName(name);
         firstStep.setLastname(lastname);
         firstStep.setAddress(address);
@@ -129,8 +126,8 @@ public class OrderTest {
         assertEquals(lastname, checkStatusStepPage.getLastname());
     }
 
-   @After
-   public void tearDown() {
+    @After
+    public void tearDown() {
         driver.quit();
     }
 }

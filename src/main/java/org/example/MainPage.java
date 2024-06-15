@@ -19,11 +19,6 @@ public class MainPage {
         this.driver = driver;
     }
 
-    public FirstStepPage topOrderButton() {
-        driver.findElement(topOrderButton).click();
-        return new FirstStepPage(driver);
-    }
-
     public void cookieConsent() {
         driver.findElement(cookieConsentButton).click();
     }
@@ -49,7 +44,32 @@ public class MainPage {
         return panel.findElement(By.tagName("p")).getText();
     }
 
-    public FirstStepPage bottomOrderButton() {
+    public void waitToLoadTopOrderButton() {
+        new WebDriverWait(driver, Duration.ofSeconds(10))
+                .until(ExpectedConditions.visibilityOfElementLocated(topOrderButton));
+    }
+
+    public void scrollToTopOrderButton() {
+        WebElement element = driver.findElement(topOrderButton);
+        ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", element);
+    }
+
+    public FirstStepPage clickTopOrderButton() {
+        driver.findElement(topOrderButton).click();
+        return new FirstStepPage(driver);
+    }
+
+    public void waitToLoadBottomOrderButton() {
+        new WebDriverWait(driver, Duration.ofSeconds(10))
+                .until(ExpectedConditions.visibilityOfElementLocated(bottomOrderButton));
+    }
+
+    public void scrollToBottomOrderButton() {
+        WebElement element = driver.findElement(bottomOrderButton);
+        ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView({behavior: 'smooth', block: 'center'});", element);
+    }
+
+    public FirstStepPage clickBottomOrderButton() {
         driver.findElement(bottomOrderButton).click();
         return new FirstStepPage(driver);
     }
