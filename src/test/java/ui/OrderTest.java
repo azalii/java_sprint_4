@@ -8,7 +8,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
@@ -40,10 +40,8 @@ public class OrderTest {
 
     @Before
     public void startUp() {
-        WebDriverManager.firefoxdriver().setup();
-        driver = new FirefoxDriver();
-//        WebDriverManager.chromedriver().setup();
-//        driver = new ChromeDriver();
+        WebDriverManager.chromedriver().setup();
+        driver = new ChromeDriver();
     }
 
     @Parameterized.Parameters
