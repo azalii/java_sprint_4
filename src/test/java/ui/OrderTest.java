@@ -80,20 +80,8 @@ public class OrderTest {
         mainPage.cookieConsent();
         mainPage.waitToLoadTopOrderButton();
         mainPage.scrollToTopOrderButton();
-        FirstStepPage firstStep = mainPage.clickTopOrderButton();
-        firstStep.setName(name);
-        firstStep.setLastname(lastname);
-        firstStep.setAddress(address);
-        firstStep.setMetro(metro);
-        firstStep.setPhone(phone);
-        SecondStepPage secondStep = firstStep.next();
-        secondStep.setDate(date);
-        secondStep.setPeriod(period);
-        secondStep.setColor(color);
-        secondStep.setComment(comment);
-        ConfirmationStepPage confirmationPage = secondStep.finish();
-        SuccessStepPage successPage = confirmationPage.yes();
-        assertTrue(successPage.isDisplayed());
+
+        orderProcess(mainPage.clickTopOrderButton());
     }
 
     @Test
@@ -104,7 +92,11 @@ public class OrderTest {
         mainPage.cookieConsent();
         mainPage.waitToLoadBottomOrderButton();
         mainPage.scrollToBottomOrderButton();
-        FirstStepPage firstStep = mainPage.clickBottomOrderButton();
+
+        orderProcess(mainPage.clickBottomOrderButton());
+    }
+
+    public void orderProcess(FirstStepPage firstStep) {
         firstStep.setName(name);
         firstStep.setLastname(lastname);
         firstStep.setAddress(address);
